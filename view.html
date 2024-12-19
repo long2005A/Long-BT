@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KKFileViewer</title>
+</head>
+
+<body>
+    <script src="https://12190509.xyz/js/base64.js" type="application/javascript"></script>
+    <script>
+    function getQueryParamValue(name) {
+        const searchParams = new URLSearchParams(window.location.search);
+        return searchParams.get(name);
+    }
+
+    let url = decodeURIComponent(getQueryParamValue("url"));
+    if (url === "null") {
+        console.log("url的参数为空!")
+    } else {
+        const alistRegex = /(\?|&)alist_ts=\d+/; 
+        if (alistRegex.test(url)) {
+            url = url.replace(alistRegex, '');
+        }
+        //这里是我根据url添加的过滤, 因为我的url后面会有alist_ts=12312312这种时间戳信息,如果kkflieview识别传入的链接不是正常链接, 就会报错,导致前端无法显示
+        url = encodeURIComponent(url);
+        let e_url='https://12190509.xyz/onlinePreview?url='+encodeURIComponent(BASE64.encode(url));
+        console.log(e_url);
+        window.open('https://12190509.xyz/onlinePreview?url='+encodeURIComponent(BASE64.encode(url)),'_self');
+    }
+    </script>
+</body>
+</html>
